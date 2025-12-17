@@ -1,25 +1,14 @@
 import java.util.Arrays;
 import java.util.Objects;
 
-public class  Freelancer {
-    private String id;
-    private String name;
+public class Freelancer extends User {
     private String[] skills;
     private double salary;
 
-    public Freelancer(String id, String name, String[] skills, double salary) {
-        this.id = id;
-        this.name = name;
+    public Freelancer(String id, String name, String email, String[] skills, double salary) {
+        super(id, name, email);
         this.skills = skills;
         this.salary = salary;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public String[] getSkills() {
@@ -38,34 +27,26 @@ public class  Freelancer {
         this.salary = salary;
     }
 
-    public String getId() {
-        return id;
+    public void displayInfo() {
+        System.out.println("Freelancer: " + getName());
+        System.out.println("Email" + getEmail());
+        System.out.println("Skills" + Arrays.toString(skills));
+        System.out.println("Salary:" + salary);
     }
 
-    public void setId(String id) {
-        this.id = id;
+    @Override
+    public String getRole() {
+        return "Freelancer";
     }
 
     @Override
     public String toString() {
         return "Freelancer{" +
-                "id='" + id + '\'' +
-                ", name='" + name + '\'' +
+                "id='" + getId() + '\'' +
+                ", name='" + getName() + '\'' +
                 ", skills=" + Arrays.toString(skills) +
                 ", salary=" + salary +
                 '}';
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (o == null || getClass() != o.getClass()) return false;
-        Freelancer that = (Freelancer) o;
-        return Objects.equals(id, that.id);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hashCode(id);
     }
 
     public boolean hasAnySkills(String skill) {
