@@ -36,6 +36,7 @@ public class Job {
     public void setBudget(double budget) {
         if(budget < 0) {
             System.out.println("Budget can not be less than 0");
+            return;
         }
         this.budget = budget;
     }
