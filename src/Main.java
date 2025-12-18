@@ -67,7 +67,7 @@ public class Main {
 //        System.out.println(job1.equals(job2));
 //        System.out.println(job1.equals(job3));
 //
-//        System.out.println(frellancer1);
+//        System.out.println(freelancer1);
 //        System.out.println("Freelancer has TypeScript? " + freelancer1.hasAnySkills("react"));
     }
 }

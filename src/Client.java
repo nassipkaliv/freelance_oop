@@ -29,6 +29,7 @@ public class Client extends User {
 
     public Job postJob(String jobId, String title, double budget) {
         Job job = new Job(jobId, title, budget, true);
+        postedJobs.add(job);
         return job;
     }
 
