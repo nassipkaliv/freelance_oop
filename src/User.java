@@ -1,6 +1,6 @@
 import java.util.Objects;
 
-public class User {
+public abstract class User {
     private String id;
     private String name;
     private String email;
@@ -35,7 +35,7 @@ public class User {
         this.email = email;
     }
 
-    public void displayInfo() {
+    public  void displayInfo() {
         System.out.println("User: " + name + "{ " + email + "}");
     }
 

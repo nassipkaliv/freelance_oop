@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 public class JobPortal {
@@ -93,7 +94,43 @@ public class JobPortal {
         return result;
     }
 
+    public List<Job> filterJobsByMinBudget(double minBudget) {
+        List<Job> result = new ArrayList<>();
+        for (Job job : jobs) {
+            if (job.getBudget() >= minBudget) {
+                result.add(job);
+            }
+        }
+        return result;
+    }
 
+    public List<Job> getJobsSortedByBudget() {
+        List<Job> sortedList = new ArrayList<>(jobs);
+        int n = sortedList.size();
+        for(int i = 0; i < n - 1; i++) {
+            for(int j = 0; j < n - i - 1; j++) {
+                if(sortedList.get(j).getBudget() < sortedList.get(j+1).getBudget()) {
+                    Job temp = sortedList.get(j);
+                    sortedList.set(j, sortedList.get(j+1));
+                    sortedList.set(j+1, temp);
+                }
+            }
+        }
+        return sortedList;
+    }
 
-
+    public List<Freelancer> getFreelancersSortedBySalary() {
+        List<Freelancer> sortedList = new ArrayList<>(freelancers);
+        int n = sortedList.size();
+        for(int i = 1; i < n; i++) {
+            Freelancer key = sortedList.get(i);
+            int j = i - 1;
+            while (j >= 0 && sortedList.get(j).getSalary() < key.getSalary()) {
+                sortedList.set(j+1, sortedList.get(j));
+                j--;
+            }
+            sortedList.set(j+1, key);
+        }
+        return  sortedList;
+    }
 }

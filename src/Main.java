@@ -4,74 +4,51 @@ import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
-        Freelancer freelancer1 = new Freelancer("f1", "Yernur", "nassipkaliv@gmail.com", new String[]{"React", "TypeScript"}, 800);
+        JobPortal kwork = new JobPortal("Kwork");
 
-        Client client1 = new Client("cleintId1", "Leha", "leha@bitrix.com", "Bitrix24");
+        kwork.addJob(new Job("j1", "Landing Page", 200, true));
+        kwork.addJob(new Job("j2", "Web Application", 1500, true));
+        kwork.addJob(new Job("j3", "Logo Design", 100, false));
+        kwork.addJob(new Job("j4", "Mobile App", 3000, true));
 
-        Job job1 = client1.postJob("jobId1", "Make Landing Page", 250);
+        kwork.addFreelancer(new Freelancer("f1", "Yernur", "y@mail.com", new String[]{"React", "TypeScript"}, 800));
+        kwork.addFreelancer(new Freelancer("f2", "Darkhan", "d@mail.com", new String[]{"Figma", "Photoshop"}, 1200));
+        kwork.addFreelancer(new Freelancer("f3", "Alex", "a@mail.com", new String[]{"React", "Node.js"}, 500));
+        kwork.addFreelancer(new Freelancer("f4", "John", "johndoe@gmail.com", new String[]{"Bitrix24", "Wordpress"}, 1000));
 
-        List<User> users = new ArrayList<>();
-        users.add(freelancer1);
-        users.add(client1);
+        System.out.println(kwork);
 
-        for(User user : users) {
-            System.out.println("Role: " + user.getRole());
-            user.displayInfo();
-            System.out.println();
+        System.out.println("Searching");
+        System.out.println("Find job j2: " + kwork.findJob("j2"));
+        System.out.println("Find freelancer f1: " + kwork.findFreelancer("f1"));
+
+
+        System.out.println("\nFiltering:");
+        for (Job j : kwork.findJobs()) {
+            System.out.println(j);
         }
 
-        System.out.println("");
+        System.out.println("\nFiltering by skill:");
+        for (Freelancer f : kwork.findFreelancersBySkills("React")) {
+            System.out.println(f);
+        }
 
-//        JobPortal kwork = new JobPortal("Kwork");
-//
-//        Job job1 = new Job("id1", "Landing page", 200, true);
-//        Job job2 = new Job("id2", "Web Design", 600, false);
-//        Job job3 = new Job("id1", "UI/UX Design", 999, true);
-//
-//        Freelancer freelancer1 = new Freelancer("id1", "Yernur", new String[]{"React", "TypeScript", "JavaScript", "PHP", "Tailwind", "Vite"}, 800);
-//        Freelancer freelancer2 = new Freelancer("id2", "Darkhan", new String[]{"Figma", "Photoshop", "Adobe Illustrator"}, 1000);
-//
-//        kwork.addJob(job1);
-//        kwork.addJob(job2);
-//        kwork.addJob(job3);
-//
-//        kwork.addFreelancer(freelancer1);
-//        kwork.addFreelancer(freelancer2);
-//
-//        System.out.println(kwork);
-//
-//        for(Job j: kwork.getJobs()) {
-//            System.out.println(j);
-//        }
-//
-//        for(Freelancer f: kwork.getFreelancers()) {
-//            System.out.println(f);
-//        }
-//
-//        List<Job> jobs = kwork.findJobs();
-//        for(Job j : jobs) {
-//            System.out.println(j);
-//        }
-//
-//
-//        System.out.print("TypeScript Devs:");
-//        List<Freelancer> tsDevs = kwork.findFreelancersBySkills("TypeScript");
-//        for(Freelancer f: tsDevs) {
-//            System.out.println((f));
-//        }
+        System.out.println("\nFiltering by min budget 500");
+        for (Job j : kwork.filterJobsByMinBudget(500)) {
+            System.out.println(j);
+        }
 
-//        System.out.println(job1);
-//        System.out.println(job2);
-//        System.out.println(job3);
-//
-//        System.out.println(job1.equals(job2));
-//        System.out.println(job1.equals(job3));
-//
-//        System.out.println(freelancer1);
-//        System.out.println("Freelancer has TypeScript? " + freelancer1.hasAnySkills("react"));
-    }
+        System.out.println("\nSorting jobs by budget");
+        for (Job j : kwork.getJobsSortedByBudget()) {
+            System.out.println(j);
+        }
+
+        System.out.println("\nSorting freelancers by salary");
+        for (Freelancer f : kwork.getFreelancersSortedBySalary()) {
+            System.out.println(f);
+        }
+  }
 }
-
 
 
 

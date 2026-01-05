@@ -65,8 +65,8 @@ public class Job {
     @Override
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
-        Freelancer that = (Freelancer) o;
-        return Objects.equals(getId(), that.getId());
+        Job job = (Job) o;
+        return Objects.equals(id, job.id);
     }
 
     @Override
