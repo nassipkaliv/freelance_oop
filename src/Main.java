@@ -1,9 +1,77 @@
 
 import java.util.ArrayList;
 import java.util.List;
+import java.sql.Connection;
+import java.sql.SQLException;
 
 public class Main {
     public static void main(String[] args) {
+        try {
+            Connection conn = DatabaseConnection.getConnection();
+            System.out.println("Connection successfull!");
+            DatabaseConnection.closeConnection();
+        } catch (Exception e) {
+            System.out.println("Error: " + e.getMessage());
+        }
+
+        // job crud
+
+        JobDAO jobDAO = new JobDAO();
+
+        try {
+            // CREATE
+            jobDAO.create(new Job("j1", "Landing page", 500, true));
+            jobDAO.create(new Job("j2", "Mobile App", 3000, true));
+            jobDAO.create(new Job("j3", "Logo Design", 200, false));
+
+            // READ ALL
+            List<Job> jobs = jobDAO.findAll();
+            for (Job j : jobs) {
+                System.out.println(j);
+            }
+
+            // READ BY ID
+            Job found = jobDAO.findByid("j1");
+            System.out.println("Found: " + found);
+
+            // UPDATE
+            found.setBudget(750);
+            found.setTitle("Legacy code change");
+            jobDAO.update(found);
+            System.out.println("Updated: " + jobDAO.findByid("j1"));
+
+            // DELETE
+            jobDAO.delete("j3");
+            System.out.println("After delete: ");
+            for (Job j : jobDAO.findAll()) {
+                System.out.println(j);
+            }
+
+            // freelancer crud
+            FreelancerDAO freelancerDAO = new FreelancerDAO();
+            freelancerDAO.create(new Freelancer("f1", "Yernur", "nassipkaliv@gmail.com", new String[]{"JS", "React", "TS"}, 1000));
+            freelancerDAO.create(new Freelancer("f2", "Darkhan", "ditch@gmail.com", new String[]{"Figma", "n8n"}, 800));
+
+            for (Freelancer f : freelancerDAO.findAll()) {
+                System.out.println(f);
+            }
+
+            Freelancer f = freelancerDAO.findById("f1");
+            f.setSalary(1500);
+            freelancerDAO.update(f);
+            System.out.println("Updated: " + freelancerDAO.findById("f1"));
+
+            freelancerDAO.delete("f2");
+            for(Freelancer fr: freelancerDAO.findAll()) {
+                System.out.println(fr);
+            }
+
+        } catch (SQLException e) {
+             e.printStackTrace();
+        } finally {
+            DatabaseConnection.closeConnection();
+        }
+
         JobPortal kwork = new JobPortal("Kwork");
 
         kwork.addJob(new Job("j1", "Landing Page", 200, true));
